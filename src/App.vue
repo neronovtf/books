@@ -3,12 +3,14 @@
     <VueHead/>
     <VueBody/>
     <VuePopup/>
+    <VueBottom/>
   </div>
 </template>
 
 <script>
 import VueHead from './components/VueHead.vue'
 import VueBody from './components/VueBody.vue'
+import VueBottom from './components/VueBottom.vue'
 import VuePopup from './components/VuePopup.vue'
 
 export default {
@@ -20,7 +22,8 @@ export default {
   components: {
     VueHead,
     VueBody,
-    VuePopup
+    VuePopup,
+    VueBottom
   },
 
 }

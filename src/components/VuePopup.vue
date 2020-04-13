@@ -17,6 +17,7 @@
                     <label>Book description</label>
                     <textarea v-model="descriptionBook" placeholder="Enter book description"></textarea>
                 </div>
+                <div class="trouble">{{trouble}}</div>
                 <div class="button">
                     <span @click="close" class="cancel">Cancel</span>
                     <button @click="save">Add</button>
@@ -33,7 +34,8 @@ export default {
         return {
             titleBook: '',
             authorBook: '',
-            descriptionBook: ''
+            descriptionBook: '',
+            trouble: ''
         }
     },
     methods: {
@@ -41,15 +43,38 @@ export default {
             this.$store.state.showPopup = false
         },
         save(){
-            this.$store.state.books.push({
-                title: this.titleBook,
-                author: this.authorBook,
-                countLikes: 0,
-                ILike: false,
-                myBook: true,
-                description: this.descriptionBook
-            });
-            this.$store.state.showPopup = false
+            let title = this.titleBook
+            let author = this.authorBook
+            let description = this.descriptionBook
+
+            if(title.length && author.length && description.length){
+                this.$store.state.books.push({
+                    title: title,
+                    author: author,
+                    countLikes: 0,
+                    ILike: false,
+                    myBook: true,
+                    description: description
+                });
+                title = ''
+                author = ''
+                description = ''
+                this.$store.state.showPopup = false
+            }
+            else{
+                this.trouble = 'Error! All fields are required!'
+            }
+        }
+    },
+    watch: {
+        titleBook(){
+            if(this.trouble.length) this.trouble = '' 
+        },
+        authorBook(){
+            if(this.trouble.length) this.trouble = '' 
+        },
+        descriptionBook(){
+            if(this.trouble.length) this.trouble = '' 
         }
     }
 }
@@ -121,5 +146,11 @@ button{
 textarea{
     max-width: 293px;
     min-height: 50px;
+}
+.trouble{
+    max-width: 300px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: tomato;
 }
 </style>

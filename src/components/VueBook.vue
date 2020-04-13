@@ -7,7 +7,18 @@
                 <div>{{book.author}}</div>
                 <VueLikes :book="book"/>
             </div>
-            <div class="description">{{book.description}}</div>
+            <!-- <div class="description" v-html="showDescription(book.description)"></div> -->
+            <div v-if="book.description.length < 200">
+                <div class="description">{{book.description}}</div>
+            </div>
+            <div v-else>
+                <div class="description">
+                    {{book.description.substr(0, 200)}}{{moreText}}
+                    <div @click="more(book.description.substr(200))" :class="isDummy ? 'chop-off' :'none'">
+                        ... show more
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -20,11 +31,20 @@
         props: ["book", "index"],
         data(){
             return {
-
+                isDummy: true,
+                moreText: ''
             }
         },
         components: {
             VueLikes
+        },
+        methods:{
+            more(text){
+                console.log(text);
+                
+                this.isDummy  = false
+                this.moreText = text;
+            }
         }
     };
 
@@ -71,5 +91,18 @@
     color: gray;
     justify-content: space-between;
     margin-bottom: 10px;
+}
+  .chop-off{
+    display: inline-block;
+    /* background-color: red; */
+    color: gray;
+    /* margin-left: 5px; */
+    cursor: pointer;
+    user-select: none;
+    font-style: italic;
+    font-size: 12px;
+}
+.none{
+    display: none;
 }
 </style>

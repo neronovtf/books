@@ -3,7 +3,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
             <path v-bind="propertiesSvg"/>
         </svg>
-        <span>{{book.countLikes}}</span>
+        <span >{{likes()}}</span>
     </div>
 </template>
 
@@ -33,11 +33,13 @@ export default {
             var isLike = this.book.ILike;
             this.book.ILike = !isLike;
             isLike ? --this.book.countLikes : ++this.book.countLikes;
+        },
+        likes(){
+            return (this.book.countLikes+'').replace(/(\d)(?=(\d{3})+(\D|$))/g, '$1 ')
         }
     },
     data(){
         return {
-
         }
     }
 }
