@@ -2,13 +2,14 @@
   <div id="app">
     <VueHead/>
     <VueBody/>
+    <VuePopup/>
   </div>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
 import VueHead from './components/VueHead.vue'
 import VueBody from './components/VueBody.vue'
+import VuePopup from './components/VuePopup.vue'
 
 export default {
   name: 'App',
@@ -18,7 +19,8 @@ export default {
   },
   components: {
     VueHead,
-    VueBody
+    VueBody,
+    VuePopup
   },
 
 }

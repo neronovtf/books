@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     activeType: 0,
+    showPopup: false,
     books: [
         {
             title: 'Научиться летать',

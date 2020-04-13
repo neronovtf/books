@@ -2,7 +2,7 @@
     <div>
         <div class="name-site">
             <div class="title">{{title}}</div>
-            <div class="new-book">
+            <div class="new-book" @click="addNewBook">
                 ADD BOOK
             </div>
         </div>
@@ -35,7 +35,7 @@ export default {
     }
   },
     methods:{
-        changeType: function(type){
+        changeType(type){
             this.types.forEach(type => type.isActive = false)
             type.isActive = true
             this.$store.state.activeType = type.key
@@ -48,6 +48,9 @@ export default {
                 case 2: count = this.$store.state.books.filter(book => book.ILike).length; break;
             }
             return count;
+        },
+        addNewBook(){
+            this.$store.state.showPopup = true
         }
     }
 }
@@ -115,6 +118,7 @@ export default {
         color: #435869;
         font-weight: 400;
         line-height: 30px;
+        cursor: pointer;
         /* padding: 5px 5px; */
     }
 
