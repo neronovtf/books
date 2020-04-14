@@ -1,10 +1,23 @@
 <template>
-    <div>
+    <div class="head">
         <div class="name-site">
             <div class="title">{{title}}</div>
             <div class="new-book" @click="addNewBook">
                 ADD BOOK
             </div>
+        </div>
+        <div class="search">
+            <form>
+                <input
+                    v-model="findBooks"
+                    placeholder="Search by book or author"
+                    @keypress.enter.prevent
+                >
+                <svg height="30" width="30" viewBox="0 0 48 48">
+                    <path d="M31 28h-1.59l-.55-.55c1.96-2.27 3.14-5.22 3.14-8.45 0-7.18-5.82-13-13-13s-13 5.82-13 13 5.82 13 13 13c3.23 0 6.18-1.18 8.45-3.13l.55.55v1.58l10 9.98 2.98-2.98-9.98-10zm-12 0c-4.97 0-9-4.03-9-9s4.03-9 9-9 9 4.03 9 9-4.03 9-9 9z"/>
+                    <path d="M0 0h48v48h-48z" fill="none"/>
+                </svg>
+            </form>
         </div>
         <div class="panel">
             <div class="filter">
@@ -31,7 +44,7 @@ export default {
           {key: 0, text: 'All', isActive: true},
           {key: 1, text: 'My', isActive: false},
           {key: 2, text: 'Liked', isActive: false},
-      ],
+      ]
     }
   },
     methods:{
@@ -39,6 +52,7 @@ export default {
             this.types.forEach(type => type.isActive = false)
             type.isActive = true
             this.$store.state.activeType = type.key
+            this.$store.getters.filterBooks
         },
         fill(type){
             let count = 0
@@ -51,6 +65,17 @@ export default {
         },
         addNewBook(){
             this.$store.state.showPopup = true
+        },
+    },
+    computed:{
+        findBooks:{
+            get(){
+                return this.$store.state.searchText
+            },
+            set(value){
+                this.$store.state.searchText = value
+                this.$store.getters.filterBooks
+            }
         }
     }
 }
@@ -69,19 +94,39 @@ export default {
         font-size: 2rem;
         width: 100%;
     }
+    .search{
+        padding: 15px 4% 0px 4%;
+    }
+        .search form{
+            position: relative;
+            display: flex;
+        }
+        .search input {
+            width: 100%;
+            border-radius: 4px;
+            height: 42px;
+            border: 1px solid #435869;
+            padding-left: 15px;
+            padding-right: 35px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .search svg{
+            position: absolute;
+            top: 9px;
+            fill: #435869;
+            right: 6px;
+        }
     .panel{
-        /* padding: 5px 4% 5px 5%; */
         padding: 15px 4%;
         display: flex;
         margin-bottom: 10px;
         user-select: none;
-
-        /* background-color: thistle; */
     }
     .filter{
         display: flex;
         align-items: center;
-        /* justify-content: center; */
         width: 100%;
         color: #212a31;
     }
@@ -97,8 +142,6 @@ export default {
         display: inline;
         margin-right: 10px;
         cursor: pointer;
-        /* border: 1px solid #000; */
-        /* padding: 3px; */
     }
     .filter li:last-child{
         margin-right: 0px;
@@ -107,9 +150,7 @@ export default {
         border-bottom: 1px solid #435869;
     }
     .new-book{
-        /* float: right; */
         white-space: nowrap;
-        /* background-color: #f97f02; */
         color:  #f97f02;
         color: #fecb02;
         background-color: #fecb02;
@@ -119,7 +160,5 @@ export default {
         font-weight: 400;
         line-height: 30px;
         cursor: pointer;
-        /* padding: 5px 5px; */
     }
-
 </style>

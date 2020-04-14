@@ -11,7 +11,7 @@
                 </div>
                 <div class="row">
                     <label>Book author</label>
-                    <input v-model="authorBook" placeholder="Enter author of the book"/>
+                    <input v-model="authorBook" placeholder="Enter book author"/>
                 </div>
                 <div class="row">
                     <label>Book description</label>
@@ -43,9 +43,9 @@ export default {
             this.$store.state.showPopup = false
         },
         save(){
-            let title = this.titleBook
-            let author = this.authorBook
-            let description = this.descriptionBook
+            const title = this.titleBook
+            const author = this.authorBook
+            const description = this.descriptionBook
 
             if(title.length && author.length && description.length){
                 this.$store.state.books.push({
@@ -56,9 +56,9 @@ export default {
                     myBook: true,
                     description: description
                 });
-                title = ''
-                author = ''
-                description = ''
+                this.titleBook = ''
+                this.authorBook = ''
+                this.descriptionBook = ''
                 this.$store.state.showPopup = false
             }
             else{

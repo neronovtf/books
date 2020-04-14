@@ -7,7 +7,6 @@
                 <div>{{book.author}}</div>
                 <VueLikes :book="book"/>
             </div>
-            <!-- <div class="description" v-html="showDescription(book.description)"></div> -->
             <div v-if="book.description.length < 200">
                 <div class="description">{{book.description}}</div>
             </div>
@@ -56,7 +55,6 @@
     margin-bottom: 20px;
     padding-bottom: 20px;
     border-bottom: .5px solid #E6E6E6;
-    /* margin-bottom: ; */
 }
 .book:last-child{
     margin-bottom: 0px;
@@ -75,7 +73,6 @@
     font-size: 1.5rem;
 }
 .book-info{
-    /* display: inline-block; */
     flex: 1 0;
     color: #212a31;
 }
@@ -94,9 +91,7 @@
 }
   .chop-off{
     display: inline-block;
-    /* background-color: red; */
     color: gray;
-    /* margin-left: 5px; */
     cursor: pointer;
     user-select: none;
     font-style: italic;

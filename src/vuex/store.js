@@ -7,6 +7,8 @@ export default new Vuex.Store({
   state: {
     activeType: 0,
     showPopup: false,
+    searchText: '',
+    showBooks: [],
     books: [
         {
           title: "Капитан Франкасс",
@@ -88,35 +90,28 @@ export default new Vuex.Store({
           myBook: false,
           description: "Тема альманаха — рассказ о современной жизни и богатой истории Москвы, о революционных, боевых, трудовых традициях москвичей. Читатель узнает о поисках исследователей и ученых в различных областях истории и культуры, о последних открытиях археологов, краеведов, реставраторов, искусствоведов."
       }
-    ],
+    ]
   },
   
-  getters: { // Получаем значения
-    getBooksCertainType: state => {
-      let book
+  getters: {
+    filterBooks: state => {
+      let books
       switch (state.activeType) {
-        case 0: book = state.books; break;
-        case 1: book = state.books.filter(book => book.myBook); break;
-        case 2: book = state.books.filter(book => book.ILike); break;
+        case 0: books = state.books; break;
+        case 1: books = state.books.filter(book => book.myBook); break;
+        case 2: books = state.books.filter(book => book.ILike); break;
       }
-      return book
-    },
-    getAll: state =>{
-        return state.books
-    },
-    likeMe: state =>{
-        return state.books.filter(book => book.ILike)
-    },
-    myBooks: state =>{
-        return state.books.filter(book => book.myBook)
+      if(state.searchText.length){
+        books = books.filter(book => {
+          const findByTitle = !!~book.title.toLowerCase().indexOf(state.searchText.toLowerCase())
+          const findByAuthor = !!~book.author.toLowerCase().indexOf(state.searchText.toLowerCase())
+          return findByTitle || findByAuthor
+        })
+      }
+      state.showBooks = books
     }
   },
   
-  mutations: {
-    // Изменения 
-  },
-  
-  actions: {
-    // Here we will create Larry
-  }
+  mutations: {},
+  actions: {}
 });

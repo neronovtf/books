@@ -31,9 +31,11 @@ export default {
 
 <style>
   @import url('https://fonts.googleapis.com/css?family=Quicksand:300,400,500,600,700&display=swap&subset=latin-ext,vietnamese');
-  body{
+  body, input, textarea{
     font-family: 'Quicksand', sans-serif;
+    font-size: 16px;
     margin: 0px;
     padding: 0px;
+    outline: none;
   }
 </style>

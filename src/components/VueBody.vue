@@ -2,15 +2,14 @@
     <div class="main-body">
         <div class="books">
             <VueBook
-                v-for="(book, index) in this.$store.getters.getBooksCertainType"
+                v-for="(book, index) in this.$store.state.showBooks"
                 :key="index"
                 :book="book"
                 :index="(index+1)"
             />
-            <div class="is-empty" v-if="!this.$store.getters.getBooksCertainType.length">
-                No books found
+            <div class="is-empty" v-if="!this.$store.state.showBooks.length">
+                No books
             </div>
-            <!-- <VueBook :books="books"/> -->
         </div>
     </div>
 </template>
@@ -18,7 +17,6 @@
 
 <script>
     import VueBook from './VueBook.vue'
-    // import Axios from "axios"
 
     export default {
         data: function () {
@@ -28,6 +26,9 @@
         components: {
             VueBook
         },
+        created(){
+            this.$store.getters.filterBooks
+        }
     }
 </script>
 
